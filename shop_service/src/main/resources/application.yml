@@ -4,24 +4,15 @@ spring:
       repositories:
         enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
-    driver-class-name: org.postgresql.Driver
+    url: jdbc:postgresql://localhost:5432/dev_ops
     platform: POSTGRESQL
     username: ${USERNAME}
     password: ${PASSWORD}
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: validate
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
   application:
-    name: DevOpsProject
-
-server:
-  port: 8761
-eureka:
-  instance:
-    hostname: localhost
-  client:
-    register-with-eureka: false
-    fetch-registry: false
+    name: Shop_Service
