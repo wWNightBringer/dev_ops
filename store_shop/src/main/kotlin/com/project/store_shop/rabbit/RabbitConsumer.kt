@@ -14,6 +14,6 @@ class RabbitConsumer {
 
     @RabbitListener(queues = ["devOps-queue-request"])
     fun getShop(shopVo: ShopVo) {
-        logger.debug("Rabbit delivered shop id: {}, description: {}", shopVo.id, shopVo.description)
+        logger.info("Rabbit delivered shop id: {}, description: {}", shopVo.id, shopVo.description)
     }
 }

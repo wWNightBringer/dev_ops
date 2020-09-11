@@ -13,8 +13,7 @@ import org.springframework.stereotype.Component
 @RequiredArgsConstructor
 @Component
 class StoreServiceImpl(private val storeQuery: StoreQuery,
-                       private val storeFeignService: StoreFeignService,
-                       private val template: AmqpTemplate) : StoreService {
+                       private val storeFeignService: StoreFeignService) : StoreService {
 
     override fun getStoreServices(pageable: Pageable): ResponseEntity<List<StoreVo>> {
         val stores: List<StoreVo>? = storeQuery.getStoreServices(pageable)
