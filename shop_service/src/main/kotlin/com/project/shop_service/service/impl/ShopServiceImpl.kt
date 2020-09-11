@@ -14,4 +14,20 @@ class ShopServiceImpl(private val shopQuery: ShopQuery) : ShopService {
         val shops: List<ShopVo> = shopQuery.getShopServices(pageable)
         return ResponseEntity.ok().body(shops)
     }
+
+    override fun getShopService(id: Int): ResponseEntity<ShopVo> {
+        val shop: ShopVo = shopQuery.getShopService(id)
+        return ResponseEntity.ok().body(shop)
+    }
+
+    override fun updateShopService(shopVo: ShopVo): ResponseEntity<Any> {
+        shopQuery.updateShopService(shopVo)
+        return ResponseEntity.ok().body(ShopVo())
+    }
+
+    override fun deleteShopService(id: Int): ResponseEntity<Any> {
+        val flag: Boolean = shopQuery.deleteShopService(id)
+        if (flag) return ResponseEntity.notFound().build()
+        return ResponseEntity.ok().body(ShopVo())
+    }
 }

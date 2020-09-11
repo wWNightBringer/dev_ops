@@ -6,4 +6,6 @@ import java.math.BigDecimal
 
 @Data
 @Builder
-class ShopVo(var Id: Int, var description: String, var volume: Double, var price: BigDecimal)
+class ShopVo(var Id: Int?, var description: String?, var volume: Double?, var price: BigDecimal?) {
+    constructor() : this(null, null, null, null)
+}

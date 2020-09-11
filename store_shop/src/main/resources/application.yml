@@ -4,7 +4,7 @@ spring:
       repositories:
         enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/dev_ops
     platform: POSTGRESQL
     username: ${USERNAME}
     password: ${PASSWORD}
@@ -16,3 +16,5 @@ spring:
     show-sql: true
   application:
     name: Store_Shop
+server:
+  port: 8082

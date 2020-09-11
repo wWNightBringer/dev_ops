@@ -9,7 +9,7 @@ class Shop(
         @Id
         @Column(name = "shop_id")
         @GeneratedValue(strategy = GenerationType.IDENTITY)
-        var Id: Int,
-        var description: String,
-        var volume: Double,
-        var price: BigDecimal)
+        var id: Int?,
+        var description: String?,
+        var volume: Double?,
+        var price: BigDecimal?)

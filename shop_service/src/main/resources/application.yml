@@ -16,3 +16,5 @@ spring:
     show-sql: true
   application:
     name: Shop_Service
+server:
+  port: 8081
