@@ -20,7 +20,8 @@ class ShopQueryImpl(var shopRepository: ShopRepository) : ShopQuery {
 
     @Transactional(readOnly = true)
     override fun getShopService(id: Int): ShopVo {
-        val findOne = shopRepository.findById(id) ?: return ShopVo()
+        val findOne = shopRepository.findById(id)
+        if (findOne.isEmpty) return ShopVo()
         return mapShopToShopVo(findOne.get())
     }
 
@@ -47,6 +48,6 @@ class ShopQueryImpl(var shopRepository: ShopRepository) : ShopQuery {
     }
 
     private fun mapShopVoToShop(shopVo: ShopVo): Shop {
-        return Stream.of(shopVo).map { m -> Shop(m.Id, m.description, m.volume, m.price) }.findFirst().get()
+        return Stream.of(shopVo).map { m -> Shop(m.id, m.description, m.volume, m.price) }.findFirst().get()
     }
 }

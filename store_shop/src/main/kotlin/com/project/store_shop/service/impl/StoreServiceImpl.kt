@@ -5,6 +5,7 @@ import com.project.store_shop.query.StoreQuery
 import com.project.store_shop.service.StoreService
 import com.project.store_shop.webservice.StoreFeignService
 import lombok.RequiredArgsConstructor
+import org.springframework.amqp.core.AmqpTemplate
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component
@@ -12,7 +13,8 @@ import org.springframework.stereotype.Component
 @RequiredArgsConstructor
 @Component
 class StoreServiceImpl(private val storeQuery: StoreQuery,
-                       private val storeFeignService: StoreFeignService) : StoreService {
+                       private val storeFeignService: StoreFeignService,
+                       private val template: AmqpTemplate) : StoreService {
 
     override fun getStoreServices(pageable: Pageable): ResponseEntity<List<StoreVo>> {
         val stores: List<StoreVo>? = storeQuery.getStoreServices(pageable)
@@ -27,6 +29,10 @@ class StoreServiceImpl(private val storeQuery: StoreQuery,
 
     override fun getStoreService(id: Int): ResponseEntity<StoreVo> {
         val store: StoreVo = storeQuery.getStoreService(id)
+        if (store.shopId != null) {
+            val shopService = storeFeignService.getShopService(store.shopId)
+            store.shopDescription = shopService.description
+        }
         return ResponseEntity.ok().body(store)
     }
 

@@ -4,7 +4,7 @@ spring:
       repositories:
         enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/postgres
+    url: jdbc:postgresql://localhost:5432/dev_ops
     driver-class-name: org.postgresql.Driver
     platform: POSTGRESQL
     username: ${USERNAME}
@@ -16,6 +16,20 @@ spring:
     show-sql: true
   application:
     name: DevOpsProject
+  rabbitmq:
+    port: 5672
+    listener:
+      simple:
+        retry:
+          enabled: true
+          initial-interval: 3s
+          max-attempts: 6
+          max-interval: 10s
+          multiplier: 2
+    virtual-host: DevOps
+    username: DevOps
+    password: DevOps
+    host: localhost
 
 server:
   port: 8761

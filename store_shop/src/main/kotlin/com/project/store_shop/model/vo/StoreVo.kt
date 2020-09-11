@@ -1,6 +1,8 @@
 package com.project.store_shop.model.vo
 
-class StoreVo {
+import java.io.Serializable
+
+class StoreVo : Serializable {
     var id: Int? = null
     var description: String? = null
     var quantityStaff: Int? = null

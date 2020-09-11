@@ -25,7 +25,8 @@ class StoreQueryImpl(var storeRepository: StoreRepository) : StoreQuery {
 
     @Transactional(readOnly = true)
     override fun getStoreService(id: Int): StoreVo {
-        val findOne = storeRepository.findById(id) ?: return StoreVo()
+        val findOne = storeRepository.findById(id)
+        if (findOne.isEmpty) return StoreVo()
         return mapStoreToStoreVo(findOne.get())
     }
 
