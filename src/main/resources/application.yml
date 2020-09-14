@@ -15,7 +15,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
   application:
-    name: DevOpsProject
+    name: devOpsProject
   rabbitmq:
     port: 5672
     listener:
@@ -39,3 +39,9 @@ eureka:
   client:
     register-with-eureka: false
     fetch-registry: false
+zuul:
+  routes:
+    shop_service:
+      url: http://localhost:8081
+    store_shop:
+      url: http://localhost:8082

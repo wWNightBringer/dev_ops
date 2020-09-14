@@ -15,7 +15,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
   application:
-    name: Store_Shop
+    name: store_shop
   rabbitmq:
     port: 5672
     listener:

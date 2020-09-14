@@ -29,6 +29,6 @@ spring:
     password: DevOps
     host: localhost
   application:
-    name: Shop_Service
+    name: shop_service
 server:
   port: 8081
