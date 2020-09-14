@@ -4,10 +4,10 @@ spring:
       repositories:
         enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/dev_ops
+    url: ${SPRING_DATASOURCE_URL}
     platform: POSTGRESQL
-    username: ${USERNAME}
-    password: ${PASSWORD}
+    username: postgres
+    password: F4862131
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:

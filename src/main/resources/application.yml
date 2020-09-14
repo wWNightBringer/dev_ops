@@ -4,11 +4,11 @@ spring:
       repositories:
         enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/dev_ops
+    url: ${SPRING_DATASOURCE_URL}
     driver-class-name: org.postgresql.Driver
     platform: POSTGRESQL
-    username: ${USERNAME}
-    password: ${PASSWORD}
+    username: postgres
+    password: F4862131
   jpa:
     hibernate:
       ddl-auto: validate
@@ -30,7 +30,6 @@ spring:
     username: DevOps
     password: DevOps
     host: localhost
-
 server:
   port: 8761
 eureka:
@@ -42,6 +41,13 @@ eureka:
 zuul:
   routes:
     shop_service:
-      url: http://localhost:8081
+      path: /shop_service/**
+      serviceId: ${host_shop_service}
+      stripPrefix: false
     store_shop:
-      url: http://localhost:8082
+      path: /store_shop/**
+      serviceId: store_shop
+  ignored-services: '*'
+ribbon:
+  eureka:
+    enabled: true
