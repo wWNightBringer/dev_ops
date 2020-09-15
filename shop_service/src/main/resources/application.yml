@@ -4,14 +4,14 @@ spring:
       repositories:
         enabled: true
   datasource:
-    url: ${SPRING_DATASOURCE_URL}
+    url: ${SPRING_DATASOURCE_URL}?createDatabaseIfNotExist=true
     platform: POSTGRESQL
     username: postgres
     password: F4862131
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
   rabbitmq:
@@ -29,6 +29,21 @@ spring:
     password: DevOps
     host: localhost
   application:
-    name: shop_service
+    name: shop
+  cloud:
+    discovery:
+      enabled: true
+    service-registry:
+      auto-registration:
+        fail-fast: true
 server:
   port: 8081
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka/}
+ribbon:
+  eureka:
+    enabled: true

@@ -15,54 +15,42 @@ services:
       - POSTGRES_USER=postgres
       - POSTGRES_DB=dev_ops
       - PGDATA=/var/lib/postgresql/data/pgdata
-  dev_ops:
+  discovery:
     container_name: dev_ops
     image: dev_ops:latest
     restart: on-failure
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/dev_ops
-      host_shop_service: http://shop_service:8081
+      host_shop_service: http://shop:8081
     build:
-      context: .
+      context: ./
       dockerfile: Dockerfile
     ports:
-      - 8761:8761
+      - "8761:8761"
     networks:
       - dev_ops_network
     depends_on:
-      - shop_service
-      - store_shop
       - postgresql
-  shop_service:
+
+  shop:
     container_name: shop_service
     image: shop_service:latest
     restart: on-failure
     build:
-      context: .
-      dockerfile: shop_service/Dockerfile
+      context: ./shop_service
+      dockerfile: Dockerfile
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/dev_ops
+      EUREKA_SERVER: http://discovery:8761/eureka/
     networks:
       - dev_ops_network
     depends_on:
+      - discovery
       - postgresql
     ports:
-      - 8081:8080
-  store_shop:
-    container_name: store_shop
-    image: store_shop:latest
-    restart: on-failure
-    build:
-      context: .
-      dockerfile: store_shop/Dockerfile
-    environment:
-      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/dev_ops
-    networks:
-      - dev_ops_network
-    depends_on:
-      - postgresql
-    ports:
-      - 8082:8080
+      - "8081:8081"
+    links:
+      - discovery:discovery
 networks:
   dev_ops_network:
     driver: bridge

@@ -40,13 +40,10 @@ eureka:
     fetch-registry: false
 zuul:
   routes:
-    shop_service:
-      path: /shop_service/**
-      serviceId: ${host_shop_service}
-      stripPrefix: false
-    store_shop:
-      path: /store_shop/**
-      serviceId: store_shop
+    shop:
+      url: ${host_shop_service:http://localhost:8081}
+    store:
+      url: ${host_store_shop:http://localhost:8082}
   ignored-services: '*'
 ribbon:
   eureka:
