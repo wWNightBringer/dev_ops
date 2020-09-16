@@ -17,6 +17,20 @@ services:
       - PGDATA=C:\Program Files\PostgreSQL\12\data
     volumes:
       - C:\Program Files\PostgreSQL\12\data
+  pgadmin:
+    image: dpage/pgadmin4
+    container_name: pgadmin
+    restart: always
+    environment:
+      PGADMIN_DEFAULT_EMAIL: admin@linuxhint.com
+      PGADMIN_DEFAULT_PASSWORD: F4862131
+      PGADMIN_LISTEN_PORT: 80
+    ports:
+    - "8080:80"
+    volumes:
+    - C:\Program Files\PostgreSQL\12\pgAdmin 4
+    links:
+      - "postgresql:pgsql-server"
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: rabbitmq
@@ -98,3 +112,8 @@ services:
 networks:
   dev_ops_network:
     driver: bridge
+volumes:
+  db-data:
+    driver: local
+  pgadmin-data:
+  db:
