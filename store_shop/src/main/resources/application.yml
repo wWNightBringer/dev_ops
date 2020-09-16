@@ -11,7 +11,7 @@ spring:
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
   application:
@@ -29,6 +29,23 @@ spring:
     virtual-host: DevOps
     username: DevOps
     password: DevOps
-    host: localhost
+    host: ${RABBITMQ_HOST:localhost}
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE}
+  cloud:
+    discovery:
+      enabled: true
+    service-registry:
+      auto-registration:
+        fail-fast: true
 server:
   port: 8082
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka/}
+ribbon:
+  eureka:
+    enabled: true

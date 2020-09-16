@@ -14,7 +14,24 @@ services:
       - POSTGRES_PASSWORD=F4862131
       - POSTGRES_USER=postgres
       - POSTGRES_DB=dev_ops
-      - PGDATA=/var/lib/postgresql/data/pgdata
+      - PGDATA=C:\Program Files\PostgreSQL\12\data
+    volumes:
+      - C:\Program Files\PostgreSQL\12\data
+  rabbitmq:
+    image: rabbitmq:3-management-alpine
+    container_name: rabbitmq
+    volumes:
+      - ./.docker/rabbitmq/etc/:/etc/rabbitmq/
+      - ./.docker/rabbitmq/data/:/var/lib/rabbitmq/
+      - ./.docker/rabbitmq/logs/:/var/log/rabbitmq/
+    environment:
+      RABBITMQ_DEFAULT_USER: DevOps
+      RABBITMQ_DEFAULT_PASS: DevOps
+    ports:
+      - '5672:5672'
+      - '15672:15672'
+    networks:
+      - dev_ops_network
   discovery:
     container_name: dev_ops
     image: dev_ops:latest
@@ -22,6 +39,7 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/dev_ops
       host_shop_service: http://shop:8081
+      host_store_shop: http://store:8082
     build:
       context: ./
       dockerfile: Dockerfile
@@ -42,13 +60,39 @@ services:
     environment:
       SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/dev_ops
       EUREKA_SERVER: http://discovery:8761/eureka/
+      RABBITMQ_HOST: rabbitmq
+      SPRING_PROFILES_ACTIVE: prod
     networks:
       - dev_ops_network
     depends_on:
+      - rabbitmq
       - discovery
       - postgresql
     ports:
       - "8081:8081"
+    links:
+      - discovery:discovery
+
+  store:
+    container_name: store_service
+    image: store_service:latest
+    restart: on-failure
+    build:
+      context: ./store_shop
+      dockerfile: Dockerfile
+    environment:
+      SPRING_DATASOURCE_URL: jdbc:postgresql://postgres:5432/dev_ops
+      EUREKA_SERVER: http://discovery:8761/eureka/
+      RABBITMQ_HOST: rabbitmq
+      SPRING_PROFILES_ACTIVE: prod
+    networks:
+      - dev_ops_network
+    depends_on:
+      - rabbitmq
+      - discovery
+      - postgresql
+    ports:
+      - "8082:8082"
     links:
       - discovery:discovery
 networks:

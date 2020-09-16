@@ -5,7 +5,6 @@ import com.project.store_shop.query.StoreQuery
 import com.project.store_shop.service.StoreService
 import com.project.store_shop.webservice.StoreFeignService
 import lombok.RequiredArgsConstructor
-import org.springframework.amqp.core.AmqpTemplate
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.stereotype.Component

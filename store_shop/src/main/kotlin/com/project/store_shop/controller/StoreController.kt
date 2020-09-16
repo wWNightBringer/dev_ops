@@ -23,7 +23,7 @@ class StoreController(private val storeService: StoreService) {
     }
 
     @PostMapping(value = ["/update"])
-    fun updateStoreService(shopVo: StoreVo): ResponseEntity<Any> {
+    fun updateStoreService(@RequestBody shopVo: StoreVo): ResponseEntity<Any> {
         return storeService.updateStoreService(shopVo)
     }
 

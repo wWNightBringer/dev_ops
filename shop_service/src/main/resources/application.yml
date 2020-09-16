@@ -27,7 +27,7 @@ spring:
     virtual-host: DevOps
     username: DevOps
     password: DevOps
-    host: localhost
+    host: ${RABBITMQ_HOST:localhost}
   application:
     name: shop
   cloud:
