@@ -1,11 +1,14 @@
 package com.project.store_shop.rabbit
 
+import com.fasterxml.jackson.databind.ObjectMapper
 import com.project.store_shop.model.vo.ShopVo
 import lombok.RequiredArgsConstructor
 import org.slf4j.Logger
 import org.slf4j.LoggerFactory
+import org.springframework.amqp.rabbit.annotation.RabbitHandler
 import org.springframework.amqp.rabbit.annotation.RabbitListener
 import org.springframework.stereotype.Component
+
 
 @Component
 @RequiredArgsConstructor

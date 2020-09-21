@@ -27,7 +27,10 @@ class SwaggerConfig {
     private fun apiInfo(): ApiInfo {
         val title = "DevOps API"
         val description = "Sample Swagger implementation for the `DevOps` service, leveraging annotations at the controller-method level."
-        return ApiInfoBuilder().title(title).description(description)
+        return ApiInfoBuilder()
+                .title(title)
+                .description(description)
+                .license("By freeway core")
                 .version("1.0").build()
     }
 

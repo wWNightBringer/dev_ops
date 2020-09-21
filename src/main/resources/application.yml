@@ -26,10 +26,10 @@ spring:
           max-attempts: 6
           max-interval: 10s
           multiplier: 2
-    virtual-host: DevOps
-    username: DevOps
-    password: DevOps
-    host: localhost
+    virtual-host: "/"
+    username: guest
+    password: guest
+    host: ${RABBITMQ_HOST:localhost}
 server:
   port: 8761
 eureka:

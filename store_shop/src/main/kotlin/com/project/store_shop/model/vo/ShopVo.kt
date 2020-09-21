@@ -7,6 +7,19 @@ import java.math.BigDecimal
 
 @Data
 @Builder
-class ShopVo(var id: Int?, var description: String?, var volume: Double?, var price: BigDecimal?): Serializable {
-    constructor() : this(null, null, null, null)
+class ShopVo : Serializable {
+    var id: Int? = null
+    var description: String? = null
+    var volume: Double? = null
+    var price: BigDecimal? = null
+
+    constructor(id: Int?, description: String?, volume: Double?, price: BigDecimal?) {
+        this.id = id
+        this.description = description
+        this.volume = volume
+        this.price = price
+    }
+
+    constructor()
+
 }
