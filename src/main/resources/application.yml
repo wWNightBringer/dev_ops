@@ -4,14 +4,14 @@ spring:
       repositories:
         enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/dev_ops
+    url: ${SPRING_DATASOURCE_URL}
     driver-class-name: org.postgresql.Driver
     platform: POSTGRESQL
-    username: ${USERNAME}
-    password: ${PASSWORD}
+    username: postgres
+    password: F4862131
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
   application:
@@ -26,11 +26,10 @@ spring:
           max-attempts: 6
           max-interval: 10s
           multiplier: 2
-    virtual-host: DevOps
-    username: DevOps
-    password: DevOps
-    host: localhost
-
+    virtual-host: "/"
+    username: guest
+    password: guest
+    host: ${RABBITMQ_HOST:localhost}
 server:
   port: 8761
 eureka:
@@ -41,7 +40,11 @@ eureka:
     fetch-registry: false
 zuul:
   routes:
-    shop_service:
-      url: http://localhost:8081
-    store_shop:
-      url: http://localhost:8082
+    shop:
+      url: ${host_shop_service:http://localhost:8081}
+    store:
+      url: ${host_store_shop:http://localhost:8082}
+  ignored-services: '*'
+ribbon:
+  eureka:
+    enabled: true

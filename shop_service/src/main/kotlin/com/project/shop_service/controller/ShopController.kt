@@ -3,6 +3,8 @@ package com.project.shop_service.controller
 import com.project.shop_service.model.vo.ShopVo
 import com.project.shop_service.service.ShopService
 import lombok.RequiredArgsConstructor
+import org.slf4j.Logger
+import org.slf4j.LoggerFactory
 import org.springframework.data.domain.Pageable
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.*
@@ -11,6 +13,7 @@ import org.springframework.web.bind.annotation.*
 @RequestMapping(value = ["/api/shop-service"])
 @RestController
 class ShopController(private val shopService: ShopService) {
+    private val logger: Logger = LoggerFactory.getLogger(ShopController::class.java)
 
     @GetMapping(value = [""])
     fun getShopServices(pageable: Pageable): ResponseEntity<List<ShopVo>> {
@@ -23,7 +26,8 @@ class ShopController(private val shopService: ShopService) {
     }
 
     @PostMapping(value = ["/update"])
-    fun updateShopService(shopVo: ShopVo): ResponseEntity<Any> {
+    fun updateShopService(@RequestBody shopVo: ShopVo): ResponseEntity<Any> {
+        logger.info("ShopVo description: {}, volume: {}, price {}", shopVo.description, shopVo.volume, shopVo.price)
         return shopService.updateShopService(shopVo)
     }
 

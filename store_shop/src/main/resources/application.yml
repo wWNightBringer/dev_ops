@@ -4,18 +4,18 @@ spring:
       repositories:
         enabled: true
   datasource:
-    url: jdbc:postgresql://localhost:5432/dev_ops
+    url: ${SPRING_DATASOURCE_URL}
     platform: POSTGRESQL
-    username: ${USERNAME}
-    password: ${PASSWORD}
+    username: postgres
+    password: F4862131
     driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
-      ddl-auto: validate
+      ddl-auto: update
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
   application:
-    name: store_shop
+    name: store
   rabbitmq:
     port: 5672
     listener:
@@ -26,9 +26,26 @@ spring:
           max-attempts: 6
           max-interval: 10s
           multiplier: 2
-    virtual-host: DevOps
-    username: DevOps
-    password: DevOps
-    host: localhost
+    virtual-host: "/"
+    username: guest
+    password: guest
+    host: ${RABBITMQ_HOST:localhost}
+  profiles:
+    active: ${SPRING_PROFILES_ACTIVE}
+  cloud:
+    discovery:
+      enabled: true
+    service-registry:
+      auto-registration:
+        fail-fast: true
 server:
   port: 8082
+eureka:
+  instance:
+    prefer-ip-address: true
+  client:
+    service-url:
+      defaultZone: ${EUREKA_SERVER:http://localhost:8761/eureka/}
+ribbon:
+  eureka:
+    enabled: true

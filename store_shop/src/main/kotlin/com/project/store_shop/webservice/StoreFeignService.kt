@@ -5,7 +5,7 @@ import org.springframework.cloud.openfeign.FeignClient
 import org.springframework.web.bind.annotation.GetMapping
 import org.springframework.web.bind.annotation.RequestParam
 
-@FeignClient(value = "storeFeign", url = "http://localhost:8081/api")
+@FeignClient(value = "storeFeign", url = "\${custom.feign.host.shop}")
 interface StoreFeignService {
     @GetMapping(value = ["/shop-service"])
     fun getShopServices(): List<ShopVo>

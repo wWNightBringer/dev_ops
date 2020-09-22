@@ -1,0 +1,4 @@
+custom:
+  feign:
+    host:
+      shop: http://shop:8081/api
