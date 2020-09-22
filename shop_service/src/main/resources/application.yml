@@ -5,17 +5,15 @@ spring:
         enabled: true
   datasource:
     url: jdbc:postgresql://localhost:5432/dev_ops
-    driver-class-name: org.postgresql.Driver
     platform: POSTGRESQL
     username: ${USERNAME}
     password: ${PASSWORD}
+    driver-class-name: org.postgresql.Driver
   jpa:
     hibernate:
       ddl-auto: validate
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
-  application:
-    name: devOpsProject
   rabbitmq:
     port: 5672
     listener:
@@ -30,18 +28,7 @@ spring:
     username: DevOps
     password: DevOps
     host: localhost
-
+  application:
+    name: shop_service
 server:
-  port: 8761
-eureka:
-  instance:
-    hostname: localhost
-  client:
-    register-with-eureka: false
-    fetch-registry: false
-zuul:
-  routes:
-    shop_service:
-      url: http://localhost:8081
-    store_shop:
-      url: http://localhost:8082
+  port: 8081
