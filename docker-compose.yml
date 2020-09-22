@@ -106,6 +106,16 @@ services:
       - "8082:8082"
     links:
       - discovery:discovery
+  ngnix:
+    image: nginx:alpine
+    container_name: ngnix
+    restart: unless-stopped
+    tty: true
+    ports:
+    - "80:80"
+    - "443:443"
+    networks:
+     - dev_ops_network
 networks:
   dev_ops_network:
     driver: bridge
