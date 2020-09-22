@@ -1,11 +1,13 @@
 package com.project.dev_ops
 
-import org.springframework.amqp.rabbit.annotation.EnableRabbit
 import org.springframework.boot.autoconfigure.SpringBootApplication
 import org.springframework.boot.runApplication
 import org.springframework.cloud.netflix.eureka.server.EnableEurekaServer
 import org.springframework.cloud.netflix.zuul.EnableZuulProxy
+import org.springframework.context.annotation.PropertySource
 
+
+@PropertySource(value = ["classpath:language_en.yml"])
 @EnableZuulProxy
 @EnableEurekaServer
 @SpringBootApplication

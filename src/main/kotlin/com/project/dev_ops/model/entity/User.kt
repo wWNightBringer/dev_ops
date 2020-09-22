@@ -6,9 +6,10 @@ import javax.persistence.Id
 import javax.persistence.Table
 
 @Entity
-@Table(name = "user")
+@Table(name = "users")
 class User(
         @Id
+        @Column(name = "id")
         val id: Int,
         val username: String,
         val password: String,
