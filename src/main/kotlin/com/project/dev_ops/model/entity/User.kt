@@ -10,12 +10,12 @@ import javax.persistence.Table
 class User(
         @Id
         @Column(name = "id")
-        val id: Int,
-        val username: String,
-        val password: String,
-        val email: String,
+        val id: Int?,
+        val username: String?,
+        val password: String?,
+        val email: String?,
         @Column(name = "shop_id")
-        val shopId: Int,
+        val shopId: Int?,
         @Column(name = "role_id")
-        val roleId: Int
+        val roleId: Int?
 )

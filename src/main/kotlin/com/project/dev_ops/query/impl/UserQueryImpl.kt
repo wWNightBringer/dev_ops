@@ -8,9 +8,10 @@ import org.springframework.stereotype.Component
 
 @Component
 class UserQueryImpl(private val userRepository: UserRepository) : UserQuery {
-    override fun validateUser(userVo: UserVo): UserVo {
-        val findUserByUsername = userRepository.findUserByUsername(userVo.username) ?: return UserVo()
-        return mapUserToUserVo(findUserByUsername)
+
+    override fun validateUsername(username: String): UserVo {
+        val user = userRepository.findUserByUsername(username) ?: return UserVo()
+        return mapUserToUserVo(user.orElse(User(null, null, null, null, null, null))!!)
     }
 
     fun mapUserToUserVo(user: User): UserVo {

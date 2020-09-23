@@ -20,9 +20,10 @@ class SignUpServiceImpl(private val tokenService: TokenUserService,
                         private val userExist: String) : SignUpService {
 
     override fun signUp(userVo: UserVo): ResponseEntity<UserVo> {
-        cipherConfig.encode(userVo.password)
-        val validateUser = userQuery.validateUser(userVo)
+
+        val validateUser = userQuery.validateUsername(userVo.username!!)
         if (validateUser.username != null) return ResponseEntity.notFound().eTag(userExist).build()
+        cipherConfig.base64Encode(userVo.password)
 
         return ResponseEntity.ok().body(UserVo())
     }

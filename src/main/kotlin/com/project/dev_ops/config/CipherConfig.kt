@@ -14,10 +14,20 @@ class CipherConfig(
 
     private val algorithm = "PBKDF2WithHmacSHA512"
 
-    fun encode(password: String?): String {
+    fun base64Encode(password: String?): String {
+        return Base64.getEncoder().encodeToString(secure(password))
+    }
+
+    //Useless functionality, use just in test
+    fun base64Decode(password: String?): String {
+        return String(Base64.getDecoder().decode(secure(password)))
+    }
+
+    fun secure(password: String?): ByteArray {
         val keySpec = PBEKeySpec(password!!.toCharArray(), key.toByteArray(StandardCharsets.UTF_8), 65536, 256)
         val secretKeyFactory = SecretKeyFactory.getInstance(algorithm)
-        val securePassword = secretKeyFactory.generateSecret(keySpec).encoded
-        return Base64.getEncoder().encodeToString(securePassword)
+        return secretKeyFactory.generateSecret(keySpec).encoded
     }
+
+
 }
