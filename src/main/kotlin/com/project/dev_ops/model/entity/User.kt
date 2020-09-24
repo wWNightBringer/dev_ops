@@ -1,15 +1,13 @@
 package com.project.dev_ops.model.entity
 
-import javax.persistence.Column
-import javax.persistence.Entity
-import javax.persistence.Id
-import javax.persistence.Table
+import javax.persistence.*
 
 @Entity
 @Table(name = "users")
 class User(
         @Id
         @Column(name = "id")
+        @GeneratedValue(strategy = GenerationType.IDENTITY)
         val id: Int?,
         val username: String?,
         val password: String?,

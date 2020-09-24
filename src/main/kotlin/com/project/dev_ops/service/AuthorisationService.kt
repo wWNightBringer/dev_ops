@@ -4,7 +4,8 @@ import com.project.dev_ops.model.vo.UserVo
 import org.springframework.http.ResponseEntity
 
 
-interface SignUpService {
+interface AuthorisationService {
     fun signUp(userVo: UserVo): ResponseEntity<UserVo>
+    fun signIn(userVo: UserVo): ResponseEntity<UserVo>
 
 }

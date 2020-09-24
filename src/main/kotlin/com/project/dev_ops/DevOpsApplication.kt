@@ -7,7 +7,7 @@ import org.springframework.cloud.netflix.zuul.EnableZuulProxy
 import org.springframework.context.annotation.PropertySource
 
 
-@PropertySource(value = ["classpath:language_en.yml"])
+@PropertySource(value = ["classpath:language_en.properties"])
 @EnableZuulProxy
 @EnableEurekaServer
 @SpringBootApplication
