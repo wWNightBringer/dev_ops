@@ -19,7 +19,9 @@ class AuthorisationServiceImpl(private val tokenService: TokenUserService,
                                private val userQuery: UserQuery,
                                private val cipherConfig: CipherConfig,
                                @Value(value = "\${dev_ops.userExist}")
-                               private val userExist: String) : AuthorisationService {
+                               private val userExist: String,
+                               @Value(value = "\${dev_ops.incorrectPassword}")
+                               private val incorrectPassword: String) : AuthorisationService {
 
     override fun signUp(userVo: UserVo): ResponseEntity<UserVo> {
         val validateUser = userQuery.validateUsername(userVo.username!!)
@@ -32,7 +34,11 @@ class AuthorisationServiceImpl(private val tokenService: TokenUserService,
     }
 
     override fun signIn(userVo: UserVo): ResponseEntity<UserVo> {
+        val validate = userQuery.validateUsername(userVo.username!!)
+        if (!validate.password.equals(cipherConfig.base64Encode(userVo.password)))
+            return ResponseEntity.badRequest().eTag(incorrectPassword).build()
         val token = tokenService.createToken(userVo)
+
         return ResponseEntity(UserVo(), HeaderUtil.createHttpHeaders(token), HttpStatus.OK)
     }
 }
