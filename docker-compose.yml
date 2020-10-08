@@ -16,7 +16,8 @@ services:
       - POSTGRES_DB=dev_ops
       - PGDATA=/var/lib/postgresql/data
     volumes:
-    - C:\Users\ASUS\Docker postgres data\data:/var/lib/postgresql/data
+    - C:\Users\PC\Docker postgres data\data:/var/lib/postgresql/data
+
   pgadmin:
     image: dpage/pgadmin4
     container_name: pgadmin
@@ -29,6 +30,7 @@ services:
     - "8080:80"
     links:
       - "postgresql:pgsql-server"
+
   rabbitmq:
     image: rabbitmq:3-management-alpine
     container_name: rabbitmq
@@ -41,6 +43,7 @@ services:
       - '15672:15672'
     networks:
       - dev_ops_network
+
   discovery:
     container_name: dev_ops
     image: dev_ops:latest
@@ -106,6 +109,7 @@ services:
       - "8082:8082"
     links:
       - discovery:discovery
+
   ngnix:
     image: nginx:alpine
     container_name: ngnix
@@ -116,6 +120,28 @@ services:
     - "443:443"
     networks:
      - dev_ops_network
+
+  ui:
+    container_name: ui
+    image: ui:latest
+    restart: on-failure
+    build:
+      context: ./ui
+      dockerfile: Dockerfile
+#    environment:
+#      EUREKA_SERVER: http://discovery:8761/eureka/
+    networks:
+    - dev_ops_network
+#    depends_on:
+#      - ngnix
+#      - discovery
+    expose:
+      - 3000
+    ports:
+      - "3000:3000"
+    links:
+      - discovery:discovery
+
 networks:
   dev_ops_network:
     driver: bridge
