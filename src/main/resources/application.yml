@@ -11,7 +11,7 @@ spring:
     password: F4862131
   jpa:
     hibernate:
-      ddl-auto: update
+      ddl-auto: validate
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     show-sql: true
   application:
@@ -30,8 +30,8 @@ spring:
     username: guest
     password: guest
     host: ${RABBITMQ_HOST:localhost}
-server:
-  port: 8761
+  autoconfigure:
+    exclude: org.springframework.boot.autoconfigure.security.servlet.UserDetailsServiceAutoConfiguration
 eureka:
   instance:
     hostname: localhost
@@ -48,3 +48,8 @@ zuul:
 ribbon:
   eureka:
     enabled: true
+server:
+  port: 8761
+security:
+  key: HytUi14528TYr968
+
