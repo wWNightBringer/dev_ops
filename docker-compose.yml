@@ -139,6 +139,7 @@ services:
       - 3000
     ports:
       - "3000:3000"
+    tty: true
     links:
       - discovery:discovery
 
