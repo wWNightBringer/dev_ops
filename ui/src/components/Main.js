@@ -1,12 +1,12 @@
 import React from 'react'
-import logo from "../logo.svg";
+// import logo from "../logo.svg";
 
-class HelloWorld extends React.Component {
+class Main extends React.Component {
     render() {
         return (
             <div className="App">
                 <header className="App-header">
-                    <img src={logo} className="App-logo" alt="logo"/>
+                    {/*<img src={logo} className="App-logo" alt="logo"/>*/}
                     <p>
                         <p>Here is caption: {this.props.caption}</p>
                         <p>{this.props.text} =)</p>
@@ -17,4 +17,4 @@ class HelloWorld extends React.Component {
     }
 }
 
-export default HelloWorld
+export default Main
