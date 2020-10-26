@@ -27,7 +27,7 @@ class SecurityConfig(private val userDetailsService: UserDetailsService) : WebSe
                 .headers().cacheControl()
                 .and().and().authorizeRequests()
                 .antMatchers(*AUTH_WHITELIST).permitAll()
-                .antMatchers("/api/authorisation/**", "/", "/eureka/**").permitAll()
+                .antMatchers("/api/authorisation/**", "/", "/eureka/**", "/shop/**", "/store/**").permitAll()
                 .anyRequest().authenticated()
         http.headers().cacheControl().disable()
     }
