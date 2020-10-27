@@ -38,12 +38,12 @@ class UserDetailsServiceImpl(private val userRepository: UserRepository) : UserD
 
     }
 
-    private fun getRolesByUser(rolesValue: RolesValue): ArrayList<GrantedAuthority> {
+    private fun getRolesByUser(rolesValue: RolesValue): MutableList<GrantedAuthority> {
         return when (rolesValue) {
             RolesValue.ANONYMOUS ->
-                Collections.singletonList(SimpleGrantedAuthority(RolesValue.ANONYMOUS.value)) as ArrayList<GrantedAuthority>
+                Collections.singletonList(SimpleGrantedAuthority(RolesValue.ANONYMOUS.value)) as MutableList<GrantedAuthority>
             RolesValue.USER ->
-                Collections.singletonList(SimpleGrantedAuthority(RolesValue.USER.value)) as ArrayList<GrantedAuthority>
+                Collections.singletonList(SimpleGrantedAuthority(RolesValue.USER.value)) as MutableList<GrantedAuthority>
             else -> {
                 val list = ArrayList<GrantedAuthority>()
                 for (value in RolesValue.values()) {
