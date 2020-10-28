@@ -24,8 +24,6 @@ class AuthorisationServiceImpl(private val tokenService: TokenUserService,
                                private val incorrectPassword: String) : AuthorisationService {
 
     override fun signUp(userVo: UserVo): ResponseEntity<UserVo> {
-        /*val validateUser = userQuery.validateUsername(userVo.username!!)
-        if (validateUser.username == null) return ResponseEntity.notFound().eTag(userExist).build()*/
         userVo.password = cipherConfig.base64Encode(userVo.password)
         userVo.roleId = 3
         userQuery.saveUser(userVo)

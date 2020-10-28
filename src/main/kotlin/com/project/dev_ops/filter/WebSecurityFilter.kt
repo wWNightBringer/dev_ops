@@ -17,6 +17,8 @@ class WebSecurityFilter(private val tokenUserService: TokenUserService,
 
     override fun doFilterInternal(request: HttpServletRequest, response: HttpServletResponse, chain: FilterChain) {
         val token = request.getHeader("Authorization")
+        if (token == null) SecurityContextHolder.getContext().authentication = null
+
         if (token != null && tokenUserService.validateToken(token)) {
             val username = tokenUserService.getUsernameFromToken(token)
             val loadUserByUsername = userDetailsServiceImpl.loadUserByUsername(username)
